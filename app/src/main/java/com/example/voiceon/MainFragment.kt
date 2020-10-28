@@ -76,6 +76,8 @@ class MainFragment : Fragment() {
         isRecording = false
         Toast.makeText(context, R.string.record_finish, Toast.LENGTH_SHORT).show()
         recordingBtn.setImageResource(R.drawable.mic)
+        waveLoadingView.centerTitle = ""
+        recordingBtn.visibility = View.VISIBLE
 
         timer(period = 1, initialDelay = 0) {
             AssertionError(waveLoadingView.progressValue >= 0)
@@ -89,19 +91,23 @@ class MainFragment : Fragment() {
         }
     }
 
-    val maximumRecordSec : Int = 1000 * 20
+    private val maximumRecordSec : Int = 1000 * 20
     private fun startRecording() {
         isRecording = true;
         Toast.makeText(context, R.string.record_start, Toast.LENGTH_SHORT).show()
 
-        recordingBtn.setImageResource(R.drawable.ic_stop_record)
+        recordingBtn.visibility = View.INVISIBLE
 
-        timer(period = 200, initialDelay = 0) {
+        timer(period = (maximumRecordSec / 100).toLong(), initialDelay = 0) {
             if (!isRecording) {
                 cancel()
             }
 
             activity?.runOnUiThread{
+                if (waveLoadingView.progressValue % 5 == 0) {
+                    waveLoadingView.centerTitle = (maximumRecordSec / 1000 - waveLoadingView.progressValue / 5).toString()
+                }
+
                 ++waveLoadingView.progressValue
                 if (waveLoadingView.progressValue >= 100) {
                     stopRecording()
