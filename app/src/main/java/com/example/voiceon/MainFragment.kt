@@ -11,10 +11,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import me.itangqi.waveloadingview.WaveLoadingView
 import kotlin.concurrent.timer
@@ -37,6 +40,7 @@ class MainFragment : Fragment() {
 
     private lateinit var waveLoadingView: WaveLoadingView
     private lateinit var recordingBtn: ImageView
+    private lateinit var recordingText: TextView
 
     private var isRecording: Boolean = false
 
@@ -62,6 +66,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         waveLoadingView = view.findViewById(R.id.wave)
+        waveLoadingView.borderColor = Color.GRAY
         waveLoadingView.setOnClickListener {
             when {
                 !isRecording -> startRecording()
@@ -70,20 +75,28 @@ class MainFragment : Fragment() {
         }
 
         recordingBtn = view.findViewById(R.id.recording_btn)
+        recordingBtn.bringToFront()
+        recordingText = view.findViewById(R.id.recording_text)
+        recordingText.visibility = View.INVISIBLE
     }
 
     private fun stopRecording() {
         isRecording = false
-        Toast.makeText(context, R.string.record_finish, Toast.LENGTH_SHORT).show()
         recordingBtn.setImageResource(R.drawable.mic)
-        waveLoadingView.centerTitle = ""
-        recordingBtn.visibility = View.VISIBLE
-
-        timer(period = 1, initialDelay = 0) {
-            AssertionError(waveLoadingView.progressValue >= 0)
-
+        recordingText.text = getString(R.string.recording_complete)
+        timer(period = 2000, initialDelay = 2000) {
             activity?.runOnUiThread{
-                waveLoadingView.progressValue--
+                recordingText.visibility = View.INVISIBLE
+                cancel()
+            }
+        }
+
+        waveLoadingView.borderColor = Color.GRAY
+        waveLoadingView.borderWidth = resources.displayMetrics.density * 2
+
+        timer(period = 10, initialDelay = 0) {
+            activity?.runOnUiThread{
+                --waveLoadingView.progressValue
             }
             if (waveLoadingView.progressValue <= 0) {
                 cancel()
@@ -92,23 +105,38 @@ class MainFragment : Fragment() {
     }
 
     private val maximumRecordSec : Int = 1000 * 20
+    var borderWidthCount = 0
+    var direction = 1
+
     private fun startRecording() {
         isRecording = true;
-        Toast.makeText(context, R.string.record_start, Toast.LENGTH_SHORT).show()
+        recordingBtn.setImageResource(R.drawable.ic_stop_record)
+        recordingText.text = getString(R.string.recording)
+        recordingText.visibility = View.VISIBLE
+        waveLoadingView.borderColor = ContextCompat.getColor(requireContext(), R.color.colorPrimary)
 
-        recordingBtn.visibility = View.INVISIBLE
+        //Toast.makeText(context, R.string.record_start, Toast.LENGTH_SHORT).show()
+
+        borderWidthCount = 0
+        direction = 1
 
         timer(period = (maximumRecordSec / 100).toLong(), initialDelay = 0) {
             if (!isRecording) {
+                waveLoadingView.centerTitle = ""
                 cancel()
             }
 
             activity?.runOnUiThread{
-                if (waveLoadingView.progressValue % 5 == 0) {
-                    waveLoadingView.centerTitle = (maximumRecordSec / 1000 - waveLoadingView.progressValue / 5).toString()
-                }
+                if (!isRecording) cancel()
 
                 ++waveLoadingView.progressValue
+
+                borderWidthCount += direction
+                waveLoadingView.borderWidth += direction;
+                if (borderWidthCount % 5 == 0) {
+                    direction = -direction;
+                }
+
                 if (waveLoadingView.progressValue >= 100) {
                     stopRecording()
                     cancel()

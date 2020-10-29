@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">VoiceOn</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="record_start">녹음을 시작합니다.</string>
-    <string name="record_finish">녹음이 완료됐습니다.</string>
+    <string name="record_start">녹음을 시작합니다</string>
+    <string name="record_finish">녹음을 완료했습니다</string>>
+    <string name="record_need_sec">4초 이상 녹음해주세요</string>
+    <string name="recording">녹음중</string>
+    <string name="recording_complete">녹음 완료</string>
+    <string name="introduce">마이크를 터치해 목소리를 담아보세요</string>
 </resources>
