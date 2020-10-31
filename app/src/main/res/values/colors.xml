@@ -10,7 +10,7 @@
 
     <color name="colorPrimary">#e96d8b</color>
     <color name="colorPrimaryLight">#ffc1e3</color>
-    <color name="colorEmphasis">#414457</color>
+    <color name="colorEmphasis">#e96d8b</color>
 
     <color name="colorAccent">#e96d8b</color>
 </resources>

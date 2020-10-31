@@ -17,8 +17,10 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.NavUtils
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import me.itangqi.waveloadingview.WaveLoadingView
 import kotlin.concurrent.timer
 
@@ -41,8 +43,16 @@ class MainFragment : Fragment() {
     private lateinit var waveLoadingView: WaveLoadingView
     private lateinit var recordingBtn: ImageView
     private lateinit var recordingText: TextView
+    private lateinit var echoBtn: ImageView
+    private lateinit var cancelBtn: ImageView
+    private lateinit var listBtn: ImageView
 
     private var isRecording: Boolean = false
+
+    enum class RecordButtonState {
+        RECORD, RECORD_STOP, PLAY, PLAY_STOP
+    }
+    private var recordBtnState: RecordButtonState = RecordButtonState.RECORD
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,9 +78,11 @@ class MainFragment : Fragment() {
         waveLoadingView = view.findViewById(R.id.wave)
         waveLoadingView.borderColor = Color.GRAY
         waveLoadingView.setOnClickListener {
-            when {
-                !isRecording -> startRecording()
-                isRecording -> stopRecording()
+            when (recordBtnState){
+                RecordButtonState.RECORD -> startRecording()
+                RecordButtonState.RECORD_STOP -> stopRecording()
+                RecordButtonState.PLAY -> playRecorded()
+                RecordButtonState.PLAY_STOP -> stopPlaying()
             }
         }
 
@@ -78,12 +90,55 @@ class MainFragment : Fragment() {
         recordingBtn.bringToFront()
         recordingText = view.findViewById(R.id.recording_text)
         recordingText.visibility = View.INVISIBLE
+        echoBtn = view.findViewById(R.id.echo)
+        echoBtn.setOnClickListener {
+            if (echoBtn.alpha != 1f) {
+                return@setOnClickListener
+            }
+            recordBtnState = RecordButtonState.RECORD
+            recordingBtn.setImageResource(R.drawable.mic)
+            hideRecordResultElement()
+        }
+
+        cancelBtn = view.findViewById(R.id.cancel_record)
+        cancelBtn.setOnClickListener {
+            if (cancelBtn.alpha != 1f) {
+                return@setOnClickListener
+            }
+            recordBtnState = RecordButtonState.RECORD
+            recordingBtn.setImageResource(R.drawable.mic)
+            hideRecordResultElement()
+        }
+
+        listBtn = view.findViewById(R.id.list_btn)
+        listBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_listFragment)
+        }
+    }
+
+    private fun playRecorded() {
+        recordBtnState = RecordButtonState.PLAY_STOP
+        recordingBtn.setImageResource(R.drawable.ic_stop_record)
+    }
+
+    private fun stopPlaying() {
+        recordBtnState = RecordButtonState.PLAY
+        recordingBtn.setImageResource(R.drawable.ic_hearing_24px)
+    }
+
+    private fun hideRecordResultElement() {
+        echoBtn.animate().alpha(0f).duration = 600
+        cancelBtn.animate().alpha(0f).duration = 600
     }
 
     private fun stopRecording() {
         isRecording = false
-        recordingBtn.setImageResource(R.drawable.mic)
+        recordBtnState = RecordButtonState.PLAY
+        recordingBtn.setImageResource(R.drawable.ic_hearing_24px)
         recordingText.text = getString(R.string.recording_complete)
+        echoBtn.animate().alpha(1f).duration = 600
+        cancelBtn.animate().alpha(1f).duration = 600
+
         timer(period = 2000, initialDelay = 2000) {
             activity?.runOnUiThread{
                 recordingText.visibility = View.INVISIBLE
@@ -110,6 +165,7 @@ class MainFragment : Fragment() {
 
     private fun startRecording() {
         isRecording = true;
+        recordBtnState = RecordButtonState.RECORD_STOP
         recordingBtn.setImageResource(R.drawable.ic_stop_record)
         recordingText.text = getString(R.string.recording)
         recordingText.visibility = View.VISIBLE

@@ -6,5 +6,7 @@
     <string name="record_need_sec">4초 이상 녹음해주세요</string>
     <string name="recording">녹음중</string>
     <string name="recording_complete">녹음 완료</string>
-    <string name="introduce">마이크를 터치해 목소리를 담아보세요</string>
+    <string name="introduce">마이크를 터치해 음성메시지를 띄어보세요</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

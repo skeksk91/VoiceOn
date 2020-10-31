@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainFragment"
-    android:background="@android:color/white">
+    android:background="@color/black">
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="340dp"
-        android:layout_height="38dp"
+        android:layout_width="289dp"
+        android:layout_height="75dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="34dp"
@@ -22,7 +22,7 @@
         android:singleLine="false"
         android:text="@string/introduce"
         android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,26 +30,23 @@
 
     <ImageView
         android:id="@+id/recording_btn"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="175dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:elevation="6dp"
-        android:outlineAmbientShadowColor="@color/white"
         android:padding="40dp"
         android:src="@drawable/mic"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/wave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/wave" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="72dp"
-        android:layout_height="57dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginRight="40dp"
-        android:padding="15dp"
-        android:src="@drawable/recorder_list_btn"
+        android:id="@+id/list_btn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginRight="70dp"
+        android:src="@drawable/ic_list"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/recording_btn"
@@ -57,10 +54,10 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginLeft="70dp"
         android:src="@drawable/ic_settings_24px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/recording_btn"
@@ -69,9 +66,9 @@
 
     <me.itangqi.waveloadingview.WaveLoadingView
         android:id="@+id/wave"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="175dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +84,7 @@
         app:wlv_titleCenterStrokeWidth="3dp"
         app:wlv_triangle_direction="north"
         app:wlv_waveAmplitude="70"
-        app:wlv_waveColor="@color/colorAccent" />
+        app:wlv_waveColor="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/recording_text"
@@ -102,5 +99,28 @@
         app:layout_constraintBottom_toTopOf="@+id/recording_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/echo"
+        android:layout_width="78dp"
+        android:layout_height="86dp"
+        android:layout_marginEnd="70dp"
+        android:src="@drawable/ic_record_voice_over"
+        app:layout_constraintBottom_toTopOf="@+id/recording_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:layout_marginRight="70dp"
+        android:alpha="0"/>
+
+    <ImageView
+        android:id="@+id/cancel_record"
+        android:layout_width="78dp"
+        android:layout_height="86dp"
+        android:layout_marginLeft="70dp"
+        android:alpha="0"
+        android:src="@drawable/ic_cancel_24px"
+        app:layout_constraintBottom_toTopOf="@+id/recording_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
