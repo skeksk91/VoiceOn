@@ -8,9 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="colorPrimary">#e96d8b</color>
-    <color name="colorPrimaryLight">#ffc1e3</color>
+    <color name="colorPrimary">#E4AFB8</color>
+    <color name="colorPrimaryLight">#F3D2D7</color>
     <color name="colorEmphasis">#e96d8b</color>
+    <color name="roomClickedColor">#B5787677</color>
+    <color name="backgroundColor">#303847</color>
+    <color name="textColor">@color/white</color>
+    <color name="divider">#6BFFC1E3</color>
 
     <color name="colorAccent">#e96d8b</color>
 </resources>

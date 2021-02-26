@@ -6,27 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainFragment"
-    android:background="@color/black">
+    android:background="@color/backgroundColor">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="289dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:fontFamily="monospace"
-        android:gravity="center_horizontal"
-        android:singleLine="false"
-        android:text="@string/introduce"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <TextView-->
+<!--        android:id="@+id/information"-->
+<!--        android:layout_width="289dp"-->
+<!--        android:layout_height="75dp"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_marginTop="34dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:layout_marginRight="20dp"-->
+<!--        android:fontFamily="@font/sdgd"-->
+<!--        android:gravity="center_horizontal"-->
+<!--        android:singleLine="false"-->
+<!--        android:text="@string/introduce"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@color/textColor"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <ImageView
         android:id="@+id/recording_btn"
@@ -42,11 +42,12 @@
 
     <ImageView
         android:id="@+id/list_btn"
-        android:layout_width="80dp"
+        android:layout_width="70dp"
         android:layout_height="80dp"
+        android:padding="10dp"
         android:layout_marginEnd="70dp"
         android:layout_marginRight="70dp"
-        android:src="@drawable/ic_list"
+        android:src="@drawable/ic_list_cool"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/recording_btn"
@@ -58,7 +59,8 @@
         android:layout_height="70dp"
         android:layout_marginStart="70dp"
         android:layout_marginLeft="70dp"
-        android:src="@drawable/ic_settings_24px"
+        android:padding="10dp"
+        android:src="@drawable/ic_gear_cool"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/recording_btn"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,15 +70,17 @@
         android:id="@+id/wave"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="84dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:wlv_borderColor="@android:color/darker_gray"
+        app:wlv_borderColor="@color/colorPrimary"
         app:wlv_borderWidth="2dp"
-        app:wlv_progressValue="0"
+        app:wlv_progressValue="100"
         app:wlv_round_rectangle="true"
+        android:elevation="8dp"
+        android:outlineSpotShadowColor="@color/black"
         app:wlv_shapeType="circle"
         app:wlv_titleCenterColor="@color/colorEmphasis"
         app:wlv_titleCenterSize="24sp"
@@ -84,43 +88,29 @@
         app:wlv_titleCenterStrokeWidth="3dp"
         app:wlv_triangle_direction="north"
         app:wlv_waveAmplitude="70"
-        app:wlv_waveColor="@color/colorPrimary" />
-
-    <TextView
-        android:id="@+id/recording_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:fontFamily="monospace"
-        android:gravity="center_horizontal"
-        android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/recording_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:wlv_waveColor="@color/colorPrimaryLight" />
 
     <ImageView
         android:id="@+id/echo"
         android:layout_width="78dp"
         android:layout_height="86dp"
         android:layout_marginEnd="70dp"
-        android:src="@drawable/ic_record_voice_over"
+        android:layout_marginBottom="14dp"
+        android:src="@drawable/ic_record_voice_over_light"
         app:layout_constraintBottom_toTopOf="@+id/recording_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
         android:layout_marginRight="70dp"
         android:alpha="0"/>
 
     <ImageView
-        android:id="@+id/cancel_record"
+        android:id="@+id/player_record"
         android:layout_width="78dp"
         android:layout_height="86dp"
         android:layout_marginLeft="70dp"
+        android:layout_marginBottom="14dp"
         android:alpha="0"
-        android:src="@drawable/ic_cancel_24px"
+        android:src="@drawable/ic_hearing_24px_light"
         app:layout_constraintBottom_toTopOf="@+id/recording_btn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

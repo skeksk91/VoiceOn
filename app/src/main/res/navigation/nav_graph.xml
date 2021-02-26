@@ -18,5 +18,15 @@
         android:id="@+id/listFragment"
         android:name="com.example.voiceon.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listFragment_to_RoomFragment"
+            app:destination="@id/RoomFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/RoomFragment"
+        android:name="com.example.voiceon.RoomFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_room">
+    </fragment>
 </navigation>
